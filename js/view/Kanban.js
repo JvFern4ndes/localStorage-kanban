@@ -1,3 +1,5 @@
+import Column from "./Column.js";
+
 // esta classe exportada será responsável por renderizar o kanban na interface, básicamente;
 export default class Kanban {
   
@@ -8,7 +10,9 @@ export default class Kanban {
 
     // aqui estamos dizendo que para cada coluna, será criada uma instancia de coluna;
     Kanban.columns().forEach(column => {
+      const columnView = new Column(column.id, column.title);
 
+      this.root.appendChild(columnView.elements.root);
     });
   }
 
