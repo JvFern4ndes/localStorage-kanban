@@ -87,6 +87,24 @@ export default class KanbanAPI {
 
     save(data);
   }
+
+  // este será o método responsável por deletar os cards;
+  static deleteItem(itemId) {
+    // começamos pegando os dados do localStorage;
+    const data = read();
+
+    // aqui estamos percorrendo cada coluna dos dados retornados;
+    for (const column of data) {
+      const item = column.items.find(item => item.id == itemId);
+      
+      // aqui estamos dizendo para excluir o item caso ele exista;
+      if (item) {
+        column.items.splice(column.items.indexOf(item), 1);
+      }
+    }
+
+    save(data);
+  }
 }
 
 function read() {
