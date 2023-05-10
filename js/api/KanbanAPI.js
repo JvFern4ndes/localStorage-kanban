@@ -40,6 +40,53 @@ export default class KanbanAPI {
 
     return item;
   }
+
+  // este será o método responsável por atualizar o conteúdo dos cards;
+  static updateItem(itemId, newProps) {
+    // aqui estamos definindo a constante data (dados) como o retorno da função read;
+    const data = read();
+    // aqui estamos aplicando a desestruturação para puxar o id do item e a sua coluna atual;
+    const [item, currentColumn] = (() => {
+      for (const column of data) {
+        // aqui estamos puxando o id do item que está sendo de alguma forma atualizado;
+        const item = column.items.find(item => item.id == itemId);
+
+        // caso um item seja encontrado, estamos apenas retornando seu id e sua coluna;
+        if (item) {
+          return [item, column];
+        }
+      }
+    })();
+
+    // se nenhum item for encontrado retornamos um erro;
+    if (!item) {
+      throw new Error("Item not found.");
+    }
+
+    // aqui estamos dizendo que o conteúdo do item é igual ao novo conteúdo do item, e que se o novo conteúdo do item for undefined retornamos o atual conteúdo do item
+    item.content = newProps.content === undefined ? item.content : newProps.content;
+
+    // aqui estamos dizendo que se a nova coluna ou posição do item for diferente de undefined, ou seja, estiver em uma coluna ou posição que exista, então...
+    if (
+      newProps.columnId !== undefined
+      && newProps.position !== undefined
+    ) {
+      const targetColumn = data.find(column => column.id == newProps.columnId);
+      
+      // aqui estamos verificando se a coluna de destino existe;
+      if (!targetColumn) {
+        throw new Error("Target column not found.");
+      }
+      
+      // aqui estamos removendo o card da sua coluna de origem;
+      currentColumn.items.splice(currentColumn.items.indexOf(item), 1);
+
+      // aqui estamos inserindo um card em uma nova lista;
+      targetColumn.items.splice(newProps.position, 0, item);
+    }
+
+    save(data);
+  }
 }
 
 function read() {
