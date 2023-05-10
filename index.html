@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board</title>
+  <link rel="stylsheet" href="css/main.css">
+</head>
+<body>
+  <!-- este vai ser o container principal para o quadro kanban -->
+  <div class="kanban">
+    <!-- esta vai ser a div que vai representar apenas uma coluna no quadro kanban -->
+    <div class="kanban__column">
+      <!-- esta aqui vai ser a div do titulo da coluna (ou lista); -->
+      <div class="kanban__column-title">Candidaturas</div>
+      <!-- aqui vai ser a div onde serão inseridos os cards; -->
+      <div class="kanban__items">
+        <!-- esta div se trata de um exemplo de card na lista; -->
+        <!-- o atributo contenteditable permite que editemos o conteúdo do card direto na aplicação -->
+        <div contenteditable class="kanban__item-input">Developer Júnior</div>
+        <!-- esta é basicamente a área para onde o usuário vai arrastar um card; -->
+        <div class="kanban__dropzone"></div>
+      </div>
+      <!-- este será o botão responsável por adicionar um card à lista; -->
+      <button class="kanban__add-item" type="button">Adicionar</button>
+    </div>
+  </div>
+  <!-- o type="module" é muito importante para o uso da sintaxe de importação e exportação es6 -->
+  <script src="js/main.js" type="module"></script>
+</body>
+</html>
