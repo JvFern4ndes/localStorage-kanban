@@ -1,11 +1,13 @@
 import KanbanAPI from "../api/KanbanAPI.js";
+import DropZone from "./DropZone.js";
 import Item from "./Item.js";
 
 // esta classe se refere a uma única coluna;
 export default class Column {
-
   // aqui estamos pegando o id e o titulo da coluna;
   constructor(id, title) {
+    // aqui estamos criando uma constante e atribuindo a ela o método de criação de dropzone de sua respectiva instancia;
+    const topDropZone = DropZone.createDropZone();
     // aqui estamos dizendo que this.elements é igual à um objeto vázio;
     this.elements = {}
     // daqui em diante estamos armazenando cada elemento html que nos interessa dentro desse objeto;
@@ -18,6 +20,7 @@ export default class Column {
     // aqui nós identificamos a coluna pelo id;
     this.elements.root.dataset.id = id;
     this.elements.title.textContent = title;
+    this.elements.items.appendChild(topDropZone);
 
     // agora adicionamos cada item que aparece dentro da coluna através de um ouvidor de eventos de click;
     this.elements.addItem.addEventListener("click", () => {
