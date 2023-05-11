@@ -33,7 +33,7 @@ export default class DropZone {
       dropZone.classList.remove("kanban__dropzone--active");
 
       // aqui estamos descobrindo em qual coluna o usuário está tentando soltar o card;
-      const columnElement = dropZone.closest(".kanban__column");
+      const columnElement = dropZone.closest("31874.kanban__column");
       // aqui estamos pegando o id do conjunto de dados que definimos na linha 19 do arquivo (classe) da coluna;
       const columnId = Number(columnElement.dataset.id);
       // aqui estamos pegando um array contendo os itens dentro da coluna onde o card foi solto;
@@ -46,6 +46,11 @@ export default class DropZone {
       const droppedItemElement = document.querySelector(`[data-id="${itemId}"]`);
       // aqui nós estamos verificando se a dropzone faz parte de um card;
       const insertAfter = dropZone.parentElement.classList.contains("kanban__item") ? dropZone.parentElement : dropZone;
+
+      // aqui estamos dizendo que se o card for arrastado para a sua própria coluna, nós não queremos que atualize a API nem faça nada, para isso damos um return;
+      if (droppedItemElement.contains(dropZone)) {
+        return;
+      }
 
       // aqui estamos chamando o método after para a constante insertAfter e inserindo nela o card droppado;
       insertAfter.after(droppedItemElement);
