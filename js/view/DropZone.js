@@ -19,6 +19,23 @@ export default class DropZone {
       dropZone.classList.add("kanban__dropzone--active");
     });
 
+    // aqui estamos adicionando um ouvidor para o evento de sair da dropzone, e então ativando a função de remover o efeito visual de area "soltavel";
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("kanban__dropzone--active");
+    })
+
+    // aqui estamos adicionando um ouvidor de eventos para o evento de soltar e então adicionando a função de prevenir o comportamento padrão e remover o efeito visual de area "soltavel";
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropZone.classList.remove("kanban__dropzone--active");
+
+      // aqui estamos descobrindo em qual coluna o usuário está tentando soltar o card;
+      const columnElement = dropZone.closest(".kanban__column");
+      // aqui estamos pegando o id do conjunto de dados que definimos na linha 19 do arquivo (classe) da coluna;
+      const columnId = Number(columnElement.dataset.id);
+      console.log(columnElement, columnId);
+    });
+
     return dropZone;
   }
 }
