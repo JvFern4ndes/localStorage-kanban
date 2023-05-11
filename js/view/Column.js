@@ -21,7 +21,9 @@ export default class Column {
 
     // agora adicionamos cada item que aparece dentro da coluna através de um ouvidor de eventos de click;
     this.elements.addItem.addEventListener("click", () => {
+      const newItem = KanbanAPI.inserItem(id, "");
 
+      this.renderItem(newItem);
     });
 
     // aqui estamos chamando o método getItems da API;
