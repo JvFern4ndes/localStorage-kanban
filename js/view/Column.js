@@ -25,7 +25,7 @@ export default class Column {
 
     // aqui estamos chamando o método getItems da API;
     KanbanAPI.getItems(id).forEach(item => {
-      console.log(item);
+      this.renderItem(item);
     });
   }
 
@@ -44,4 +44,10 @@ export default class Column {
       </div>
     `).children[0];
   }
+
+  renderItem(data) {
+
+  }
 }
+
+// este método será responsável por exibir o item real na própria coluna;
