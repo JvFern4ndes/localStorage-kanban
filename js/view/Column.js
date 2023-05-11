@@ -1,8 +1,10 @@
+import KanbanAPI from "../api/KanbanAPI.js";
+
 // esta classe se refere a uma única coluna;
 export default class Column {
 
-  // aqui estamos pegando o id e o nome da coluna;
-  constructor(id, name) {
+  // aqui estamos pegando o id e o titulo da coluna;
+  constructor(id, title) {
     // aqui estamos dizendo que this.elements é igual à um objeto vázio;
     this.elements = {}
     // daqui em diante estamos armazenando cada elemento html que nos interessa dentro desse objeto;
@@ -11,6 +13,20 @@ export default class Column {
     this.elements.title = this.elements.root.querySelector(".kanban__column-title");
     this.elements.items = this.elements.root.querySelector(".kanban__column-items");
     this.elements.addItem = this.elements.root.querySelector(".kanban__add-item");
+
+    // aqui nós identificamos a coluna pelo id;
+    this.elements.root.dataset.id = id;
+    this.elements.title.textContent = title;
+
+    // agora adicionamos cada item que aparece dentro da coluna através de um ouvidor de eventos de click;
+    this.elements.addItem.addEventListener("click", () => {
+
+    });
+
+    // aqui estamos chamando o método getItems da API;
+    KanbanAPI.getItems(id).forEach(item => {
+      console.log(item);
+    });
   }
 
   // este método será responsável por gerar o html de uma coluna particular;
