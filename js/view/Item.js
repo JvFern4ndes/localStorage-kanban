@@ -50,7 +50,21 @@ export default class Item {
         // aqui estamos básicamente fazendo uma referência ao elemento pai, que é a própria coluna (lista), então estamos dizendo que vamos remover o elemento filho dele, ou seja, o card;
         this.elements.root.parentElement.removeChild(this.elements.root);
       }
-    })
+    });
+
+    // AQUI INICIAMOS O PROCESSO DE IMPLEMENTAÇÃO DO DRAG AND DROP;
+    // para isso, adicionamos um ouvidor de eventos para a raiz do card;
+    this.elements.root.addEventListener("dragstart", e => {
+      // aqui estamos definindo algumas informações sobre o componente;
+      // basicamente é dessa forma que podemos nos comunicar entre dois elementos html conforme eles são arrastados e soltos;
+      // aparentemente tudo o que colocamos como segundo argumento aqui, será passado para o dropzone ao soltarmos o card;
+      e.dataTransfer.setData("text/plain", id);
+    });
+
+    // para evitar que o comportamento do último comentário aconteça, faremos o seguinte;
+    this.elements.input.addEventListener("drop", e => {
+      e.preventDefault();
+    });
   }
 
   // esta aqui é a raiz para a criação de um novo item específico;
