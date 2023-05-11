@@ -1,9 +1,12 @@
 import KanbanAPI from "../api/KanbanAPI.js";
+import DropZone from "./DropZone.js";
 
 // aqui estamos exportando a classe padrão do Item;
 export default class Item {
   // o construtor vai passar pelo id e pelo content do item;
   constructor(id, content) {
+    // aqui estamos criando uma constante, e atribuindo a ela uma instancia da dropzone com o metodo de criação da dropzone;
+    const bottomDropZone = DropZone.createDropZone();
     // aqui estamos definindo this.elements como um objeto vazio;
     this.elements = {};
     // aqui estamos definindo que a raiz do elements é o método createRoot;
@@ -16,6 +19,9 @@ export default class Item {
 
     // aqui estamos definindo uma referencia para o content, que será usada para situações de atualizações do content;
     this.content = content;
+
+    // aqui estamos definindo o elemento que será criado na dropzone;
+    this.elements.root.appendChild(bottomDropZone);
 
     // aqui estamos implementando a função responsável por editar um card;
     const onBlur = () => {
