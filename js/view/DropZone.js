@@ -33,7 +33,12 @@ export default class DropZone {
       const columnElement = dropZone.closest(".kanban__column");
       // aqui estamos pegando o id do conjunto de dados que definimos na linha 19 do arquivo (classe) da coluna;
       const columnId = Number(columnElement.dataset.id);
-      console.log(columnElement, columnId);
+      // aqui estamos pegando um array contendo os itens dentro da coluna onde o card foi solto;
+      const dropZonesInColumn = Array.from(columnElement.querySelectorAll(".kanban__dropzone"));
+      // aqui estamos definindo a posição onde o card foi solto;
+      const droppedIndex = dropZonesInColumn.indexOf(dropZone);
+
+      console.log(droppedIndex);
     });
 
     return dropZone;
