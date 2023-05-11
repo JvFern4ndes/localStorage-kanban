@@ -1,4 +1,7 @@
 // esta classe vai representar uma zona de soltar singular;
+
+import KanbanAPI from "../api/KanbanAPI.js";
+
 // estamos criando e exportando a classe padrão;
 export default class DropZone {
   // agora estamos criando um método estático;
@@ -37,8 +40,21 @@ export default class DropZone {
       const dropZonesInColumn = Array.from(columnElement.querySelectorAll(".kanban__dropzone"));
       // aqui estamos definindo a posição onde o card foi solto;
       const droppedIndex = dropZonesInColumn.indexOf(dropZone);
+      // aqui estamos definindo qual item estamos arrastando e soltando;
+      const itemId = Number(e.dataTransfer.getData("text/plain"));
+      // aqui estamos definindo o "elemento de item real";
+      const droppedItemElement = document.querySelector(`[data-id="${itemId}"]`);
+      // aqui nós estamos verificando se a dropzone faz parte de um card;
+      const insertAfter = dropZone.parentElement.classList.contains("kanban__item") ? dropZone.parentElement : dropZone;
 
-      console.log(droppedIndex);
+      // aqui estamos chamando o método after para a constante insertAfter e inserindo nela o card droppado;
+      insertAfter.after(droppedItemElement);
+
+      // aqui estamos chamando o método de atualizar da API, e passando como parametro o itemId que acabamos de definir bem como um objeto contendo o id da coluna, a posição onde o card foi solto;
+      KanbanAPI.updateItem(itemId, {
+        columnId,
+        position: droppedIndex
+      });
     });
 
     return dropZone;
