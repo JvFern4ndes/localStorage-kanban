@@ -1,4 +1,5 @@
 import KanbanAPI from "../api/KanbanAPI.js";
+import Item from "./Item.js";
 
 // esta classe se refere a uma única coluna;
 export default class Column {
@@ -46,7 +47,10 @@ export default class Column {
   }
 
   renderItem(data) {
+    // aqui nesse método, nós iremos criar uma nova instância da classe de item;
+    const item = new Item(data.id, data.content);
 
+    this.elements.items.appendChild(item.elements.root);
   }
 }
 
