@@ -36,6 +36,21 @@ export default class Item {
 
     // aqui estamos adicionando um ouvidor de eventos, onde o evento a ser ouvido é o desfoque, e a função a ser chamada a onBlur();
     this.elements.input.addEventListener("blur", onBlur);
+    // aqui definiremos este ponto de elemento raiz para ouvir o evento de duplo clique;
+    // o duplo clique vai disparar a função de exclusão do card;
+    this.elements.root.addEventListener("dblclick", () => {
+      // primeiro a função vai se certificar de que o usuário realmente deseja excluir o item;
+      const check = confirm("Você tem certeza de que deseja excluir esta candidatura?");
+
+      // caso o usuário confirme, então chamamos da API o método de excluir; 
+      if (check) {
+        KanbanAPI.deleteItem(id);
+
+        this.elements.input.removeEventListener("blur", onBlur);
+        // aqui estamos básicamente fazendo uma referência ao elemento pai, que é a própria coluna (lista), então estamos dizendo que vamos remover o elemento filho dele, ou seja, o card;
+        this.elements.root.parentElement.removeChild(this.elements.root);
+      }
+    })
   }
 
   // esta aqui é a raiz para a criação de um novo item específico;
